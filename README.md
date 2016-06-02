@@ -1,0 +1,2 @@
+# Curly
+Lightweight .NET templating
