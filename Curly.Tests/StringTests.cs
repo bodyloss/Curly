@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace Curly.Tests
 {
@@ -26,11 +27,7 @@ namespace Curly.Tests
             var template = "This is my{{}} template";
 
             // Act
-            var parsedTemplate = new TemplateParser(template).Parse();
-            var rendered = parsedTemplate.Execute(null);
-
-            // Assert
-            Assert.That(rendered, Is.EqualTo("This is my template"));
+            Assert.Throws<Exception>(() => new TemplateParser(template).Parse());
         }
     }
 }
