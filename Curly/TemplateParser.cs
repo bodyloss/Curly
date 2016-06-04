@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Curly.Blocks;
 
 namespace Curly
 {
@@ -37,7 +38,7 @@ namespace Curly
                     curr = _templateString[_index];
                     if (curr == '{')
                     {
-                        template.AddStringBlock(content.ToString());
+                        template.AddBlock(new StringBlock(content.ToString()));
                         content.Clear();
                         template.AddBlock(ParseBlock());
                     }
@@ -54,13 +55,13 @@ namespace Curly
             }
             if (content.Length > 0)
             {
-                template.AddStringBlock(content.ToString());
+                template.AddBlock(new StringBlock(content.ToString()));
             }
 
             return template;
         }
 
-        private Template ParseBlock()
+        private IBlock ParseBlock()
         {
             _index++;
 
@@ -75,9 +76,39 @@ namespace Curly
             }
         }
 
-        private Template ParseInterpolation()
+        private InterpolationBlock ParseInterpolation()
         {
-            
+            _index++;
+            while (_templateString[_index] == ' ') _index++;
+
+            var fullIdentifier = new List<string>(3);
+            var currIndentifier = new StringBuilder();
+            var curr = _templateString[_index];
+            while (curr != '{' && curr != ' ')
+            {
+                if (curr == '.')
+                {
+                    fullIdentifier.Add(currIndentifier.ToString());
+                    currIndentifier.Clear();
+                }
+                else
+                {
+                    currIndentifier.Append(curr);
+                }
+                
+                _index++;
+                curr = _templateString[_index];
+            }
+            fullIdentifier.Add(currIndentifier.ToString());
+
+            // Todo: Optimize finding the closing }} of a block
+            while (_templateString[_index] == ' ') _index++;
+            if (_templateString[_index] != '}' || _templateString[++_index] != '}')
+            {
+                throw new UnexpectedSymbolException(_index, _templateString, UnexpectedSymbolException.ClosingBlock);
+            }
+
+            return new InterpolationBlock(fullIdentifier);
         }
     }
 }

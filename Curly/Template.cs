@@ -7,15 +7,10 @@ namespace Curly
     public class Template
     {
         private readonly List<IBlock> _blocks = new List<IBlock>();
-
-        internal void AddStringBlock(string content)
+        
+        internal void AddBlock(IBlock block)
         {
-            _blocks.Add(new StringBlock(content));
-        }
-
-        internal void AddBlock(object parseBlock)
-        {
-            
+            _blocks.Add(block);
         }
 
         public string Execute(object data)

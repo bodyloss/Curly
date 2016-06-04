@@ -12,7 +12,7 @@ namespace Curly.Tests
             var template = "My value is: {{= c.Value }}";
 
             // Act
-            var parsedTemplate = new TemplateParser(template).Parse();
+            var parsedTemplate = TemplateParser.Parse(template);
             var rendered = parsedTemplate.Execute(new {Value = 123});
 
             // Assert
@@ -26,7 +26,7 @@ namespace Curly.Tests
             var template = "My value is: {{= c.Value }}";
 
             // Act
-            var parsedTemplate = new TemplateParser(template).Parse();
+            var parsedTemplate = TemplateParser.Parse(template);
             var rendered = parsedTemplate.Execute(new { Value = "123" });
 
             // Assert
@@ -40,7 +40,7 @@ namespace Curly.Tests
             var template = "My value is: {{= c.Value }}";
 
             // Act
-            var parsedTemplate = new TemplateParser(template).Parse();
+            var parsedTemplate = TemplateParser.Parse(template);
             var rendered = parsedTemplate.Execute(new { Value = true });
 
             // Assert
@@ -54,7 +54,7 @@ namespace Curly.Tests
             var template = "My value is: {{= c.Value }}";
 
             // Act
-            var parsedTemplate = new TemplateParser(template).Parse();
+            var parsedTemplate = TemplateParser.Parse(template);
             var rendered = parsedTemplate.Execute(new { Value = 1.23d });
 
             // Assert
@@ -73,7 +73,7 @@ namespace Curly.Tests
             };
 
             // Act
-            var parsedTemplate = new TemplateParser(template).Parse();
+            var parsedTemplate = TemplateParser.Parse(template);
             var rendered = parsedTemplate.Execute(strongType);
 
             // Assert
@@ -91,7 +91,7 @@ namespace Curly.Tests
             };
 
             // Act
-            var parsedTemplate = new TemplateParser(template).Parse();
+            var parsedTemplate = TemplateParser.Parse(template);
             var rendered = parsedTemplate.Execute(strongType);
 
             // Assert
@@ -109,7 +109,7 @@ namespace Curly.Tests
             };
 
             // Act
-            var parsedTemplate = new TemplateParser(template).Parse();
+            var parsedTemplate = TemplateParser.Parse(template);
             var rendered = parsedTemplate.Execute(strongType);
 
             // Assert
@@ -127,7 +127,7 @@ namespace Curly.Tests
             };
 
             // Act
-            var parsedTemplate = new TemplateParser(template).Parse();
+            var parsedTemplate = TemplateParser.Parse(template);
             var rendered = parsedTemplate.Execute(strongType);
 
             // Assert

@@ -2,9 +2,10 @@
 
 namespace Curly
 {
-    internal class UnexpectedSymbolException : Exception
+    public class UnexpectedSymbolException : Exception
     {
         internal static char[] ExpectedBlockStarter = { '=', '?', '@'};
+        internal static char[] ClosingBlock = {'}'};
 
         internal static string CreateErrorMessage(int index, string templateString, char[] expected)
         {

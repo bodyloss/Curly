@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Curly.Tests
 {
     [TestFixture]
-    public class StringTests
+    public class NoBlocksTests
     {
         [Test]
         public void ParsesAndExecutesStringTemplateWithNoBlocks()
@@ -13,7 +13,7 @@ namespace Curly.Tests
             var template = "This is my template";
 
             // Act
-            var parsedTemplate = new TemplateParser(template).Parse();
+            var parsedTemplate = TemplateParser.Parse(template);
             var rendered = parsedTemplate.Execute(null);
 
             // Assert
@@ -27,7 +27,7 @@ namespace Curly.Tests
             var template = "This is my{{}} template";
 
             // Act
-            Assert.Throws<Exception>(() => new TemplateParser(template).Parse());
+            Assert.Throws<UnexpectedSymbolException>(() => TemplateParser.Parse(template));
         }
     }
 }
